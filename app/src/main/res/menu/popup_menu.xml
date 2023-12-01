@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/protrinas"
+        android:title="Añadir Proteina"/>
+
+    <item android:id="@+id/Acompañantes"
+        android:title="Añadir Acompañante"/>
+
+    <item android:id="@+id/Arroz"
+        android:title="Añadir Arroz"/>
+
+    <item android:id="@+id/bebidas"
+        android:title="Añadir bebidas"/>
+</menu>

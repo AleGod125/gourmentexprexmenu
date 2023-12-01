@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "872181459980",
+    "project_id": "gourmentexprexmenu",
+    "storage_bucket": "gourmentexprexmenu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872181459980:android:58ae9c9cd547bc55b81229",
+        "android_client_info": {
+          "package_name": "com.example.gourmentexprexmenu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBE8I07VpgMhHGvm_ZyCUWdEXELyihWHXQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
