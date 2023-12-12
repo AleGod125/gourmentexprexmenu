@@ -142,6 +142,21 @@
                     app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
 
 
+                <EditText
+                    android:id="@+id/precio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="@font/catacterone"
+                    android:text="$12.000"
+                    android:background="@android:color/transparent"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/appCompatTextView5"
                     android:layout_width="0dp"
@@ -192,14 +207,18 @@
 
 
             <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginStart="40dp"
-                android:src="@drawable/domiciliogratis"
+                android:src="@drawable/el_texto_del_p_rrafo_removebg_preview"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintStart_toStartOf="parent" />
+
+
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="0dp"
@@ -217,6 +236,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="-24dp"
@@ -225,6 +245,23 @@
                 app:layout_constraintHeight_percent="0.2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/nequi_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                app:layout_constraintHeight_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
