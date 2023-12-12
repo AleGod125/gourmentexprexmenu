@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         mostrar("Bebidas")
 
         binding.btnCompartir.setOnClickListener {
+
             val textList = listOf(
                 getString(R.string.MensajeGormentExorex),
                 getString(R.string.MensajeGormentExorex2),
