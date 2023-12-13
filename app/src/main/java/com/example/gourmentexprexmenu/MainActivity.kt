@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.net.DnsResolver.Callback
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -13,6 +14,7 @@ import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gourmentexprexmenu.adapters.ArrozacompañamtesAdapter
@@ -23,6 +25,9 @@ import com.example.gourmentexprexmenu.databinding.ActivityMainBinding
 import com.example.gourmentexprexmenu.dialogs.dialogAñadir
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Response
 import java.util.Random
 
 class MainActivity : AppCompatActivity() {
@@ -40,24 +45,46 @@ class MainActivity : AppCompatActivity() {
         mostrar("Arroz")
         mostrar("Bebidas")
 
+
+
         binding.btnCompartir.setOnClickListener {
+            lifecycleScope.launch {
+                try {
+                    val prompt =
+                        "Tengo un negocio (Gourmet Express) que consiste en una cocina oculta en la que ofrezco almuerzos a domicilio , por lo general mis clientes son personas en su lugar de trabajo como bancos , callcenters, clínicas , radios etc , quisiera un mensaje amigable de 20 palabras donde le doy los buenos días y los invito a comprar para acompañar el envío de la carta por WhatsApp."
+                    val response = OpenAIRetrofitClient.openAIApiService.generateText(
+                        "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",
+                        OpenAIRequest(prompt, 20)
+                    )
 
-            val textList = listOf(
-                getString(R.string.MensajeGormentExorex),
-                getString(R.string.MensajeGormentExorex2),
-                getString(R.string.MensajeGourmetExpress1),
-                getString(R.string.MensajeGourmetExpress2),
-                getString(R.string.MensajeGourmetExpress3),
-                getString(R.string.MensajeGourmetExpress4),
-                getString(R.string.MensajeGourmetExpress5),
-                getString(R.string.MensajeGourmetExpress6),
-                getString(R.string.MensajeGourmetExpress7),
-                getString(R.string.MensajeGourmetExpress8),
-                getString(R.string.MensajeGourmetExpress9),
-                getString(R.string.MensajeGourmetExpress10),
+                    response.enqueue(object : retrofit2.Callback<OpenAIResponse> {
+                        override fun onResponse(
+                            call: Call<OpenAIResponse>,
+                            response: Response<OpenAIResponse>
+                        ) {
+                            val generatedText = response.body().toString()
+                            share(viewToBitmap(binding.menu), this@MainActivity, generatedText)
 
-                )
-            share(viewToBitmap(binding.menu), this, textList)
+                        }
+
+                        override fun onFailure(call: Call<OpenAIResponse>, t: Throwable) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "Error ",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+
+                    })
+
+                } catch (e: Exception) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Error al generar el texto: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
 
         binding.popmenu.setOnClickListener { view ->
@@ -155,6 +182,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     fun viewToBitmap(view: View): Bitmap {
         val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
@@ -162,9 +190,7 @@ class MainActivity : AppCompatActivity() {
         return bitmap
     }
 
-    fun share(bitmap: Bitmap, context: Context, textList: List<String>) {
-
-        val randomText = textList[Random().nextInt(textList.size)]
+    fun share(bitmap: Bitmap, context: Context, textList: String) {
 
         val imagePath = MediaStore.Images.Media.insertImage(
             context.contentResolver,
@@ -175,7 +201,7 @@ class MainActivity : AppCompatActivity() {
         val imageUri = Uri.parse(imagePath)
 
         if (imageUri != null) {
-            val shareMessage = randomText
+            val shareMessage = textList
 
             val shareIntent = Intent(Intent.ACTION_SEND)
             shareIntent.type = "image/*"
