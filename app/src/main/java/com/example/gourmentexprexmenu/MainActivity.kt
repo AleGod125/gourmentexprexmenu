@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                     val prompt =
                         "Tengo un negocio (Gourmet Express) que consiste en una cocina oculta en la que ofrezco almuerzos a domicilio , por lo general mis clientes son personas en su lugar de trabajo como bancos , callcenters, clínicas , radios etc , quisiera un mensaje amigable de 20 palabras donde le doy los buenos días y los invito a comprar para acompañar el envío de la carta por WhatsApp."
                     val response = OpenAIRetrofitClient.openAIApiService.generateText(
-                        "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",
+                        "Bearer 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",
                         OpenAIRequest(prompt, 20)
                     )
 
